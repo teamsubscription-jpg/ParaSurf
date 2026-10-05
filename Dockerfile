@@ -21,6 +21,11 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
 ENV PATH="/opt/conda/bin:$PATH"
 SHELL ["/bin/bash", "-c"]
 
+# Accept Anaconda channel Terms of Service (required by recent Miniconda for non-interactive builds)
+ENV CONDA_PLUGINS_AUTO_ACCEPT_TOS=yes
+RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+
 # Set workspace directory
 WORKDIR /workspace
 
